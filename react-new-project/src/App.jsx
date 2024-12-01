@@ -20,7 +20,7 @@ const App = () => {
         </div>
         <ul className="list-group">
           {todoList.map((todoMap) => {
-            return <TodoList listText={todoMap.todo_text} listDate={todoMap.todo_date}/>;
+            return <TodoList key={todoMap.todo_date} listText={todoMap.todo_text} listDate={todoMap.todo_date}/>;
           })}
         </ul>
       </div>
