@@ -1,8 +1,21 @@
-import styles from "./App.module.css";
+import "./App.css";
+import CalcInput from "./components/CalcInput";
+import CalcButtons from "./components/CalcButtons";
+
+const buttons = ["AC", "+/-", "%", "÷", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "0", ".", "="];
 
 const App = () => {
   return (
-    <h1 className={styles.h1}>Hello World</h1>
+    <>
+      <CalcInput input_value="0"/>
+      <div className="button_wrap">
+        {buttons.map(btnName => {
+          return <CalcButtons key={btnName} buttonName={btnName}/>
+        })}
+      </div>
+    </>
+    
+
   );
 };
 
