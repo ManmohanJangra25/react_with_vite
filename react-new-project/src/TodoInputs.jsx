@@ -1,26 +1,10 @@
 import { useRef } from "react";
 
 const InputFIelds = (props) => {
-//   const [val, setVal] = useState({
-//     todo_text: "",
-//     todo_date: "",
-//   });
   const todoElem = useRef({
     todo_text: "",
     todo_date: "",
   });
-
-//   function handleChange(e) {
-//     const { name, value } = e.target;
-//     setVal((prevVal) => {
-//       return {
-//         ...prevVal,
-//         [name]: value,
-//       };
-//     });
-//     todoElem.current++;
-//     console.log(`Number of updates are: ${todoElem.current}`);
-//   }
 
   function handleSubmit(e) {
     e.preventDefault();
