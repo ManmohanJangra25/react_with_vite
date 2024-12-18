@@ -1,6 +1,10 @@
+import NewComp from "./NewComp";
+
 const App = () => {
   return (
-    <div>Hello World</div>
+    <NewComp>
+      <div>Hello World From New Comp</div>
+    </NewComp>
   );
 };
 
