@@ -17,6 +17,10 @@ const InputFIelds = (props) => {
 
     function handleSubmit() {
         props.lists(val);
+        setVal({
+            todo_text: '',
+            todo_date: ''
+        })
     }
 
     
