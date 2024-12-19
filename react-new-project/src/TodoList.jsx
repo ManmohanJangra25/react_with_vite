@@ -4,12 +4,11 @@ import { TodoItemsContext } from "./store/todo-items-store";
 const TodoList = (props) => {
   const todoItemsContextList = useContext(TodoItemsContext);
 
-  function handleDelete(e) {
-    const deleteTodoItem = todoItemsContextList.filter(
-      (item) => item.todo_text !== e.target.value
-    );
-    props.deletedItem(deleteTodoItem);
+  const handleDelete = (e) => {
+    const deleteData = todoItemsContextList.filter(data => data.todo_text !== e.target.value);
+    props.deletedItem(deleteData);
   }
+   
   return (
     <li className="list-group-item d-flex justify-content-between align-items-center">
       {props.listText} <span className="p">{props.listDate}</span>{" "}
