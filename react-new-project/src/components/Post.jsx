@@ -1,31 +1,39 @@
-const Post = () => {
+import { useContext } from "react";
+import { FaHeart } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { PostList as PostListData } from "../store/PostList";
+
+const Post = ({ post }) => {
+  const { deletePost } = useContext(PostListData);
+
   return (
     <div className="card" style={{ width: "18rem" }}>
-      <svg
-        className="bd-placeholder-img card-img-top"
-        width="100%"
-        height="180"
-        xmlns="http://www.w3.org/2000/svg"
-        role="img"
-        aria-label="Placeholder: Image cap"
-        preserveAspectRatio="xMidYMid slice"
-        focusable="false"
-      >
-        <title>Placeholder</title>
-        <rect width="100%" height="100%" fill="#868e96"></rect>
-        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">
-          Image cap
-        </text>
-      </svg>
       <div className="card-body">
-        <h5 className="card-title">Card title</h5>
-        <p className="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card&apos;s content.
-        </p>
-        <a href="#" className="btn btn-primary">
-          Go somewhere
-        </a>
+        <span
+          className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark delete_badge"
+          onClick={() => deletePost(post.id)}
+        >
+          <MdDelete />
+        </span>
+        <h5 className="card-title position-relative d-inline pe-5">
+          {post.title}
+        </h5>
+        <p className="card-text">{post.body}</p>
+        <h5>
+          {post.userId}
+          <span className="badge rounded-pill bg-danger ms-2">
+            <FaHeart /> {post.reactions}
+          </span>
+        </h5>
+        <ul className="d-flex">
+          {post.tags.map((e) => {
+            return (
+              <span className="badge text-bg-primary me-2" key={e}>
+                #{e}
+              </span>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
