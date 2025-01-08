@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { FaHeart } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { IoIosHeartDislike } from "react-icons/io";
 import { PostList as PostListData } from "../store/PostList";
 
 const Post = ({ post }) => {
@@ -22,7 +23,10 @@ const Post = ({ post }) => {
         <h5>
           {post.userId}
           <span className="badge rounded-pill bg-danger ms-2">
-            <FaHeart /> {post.reactions}
+            <FaHeart /> {post.reactions.likes}
+          </span>
+          <span className="badge rounded-pill bg-dark ms-2">
+            <IoIosHeartDislike /> {post.reactions.dislikes}
           </span>
         </h5>
         <ul className="d-flex">

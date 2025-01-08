@@ -18,10 +18,7 @@ const PostListReducer = (currPostList, action) => {
 };
 
 const PostListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(
-    PostListReducer,
-    DEFAULT_POST_LIST
-  );
+  const [postList, dispatchPostList] = useReducer(PostListReducer, []);
 
   const addPost = (data) => {
     dispatchPostList({
@@ -48,23 +45,23 @@ const PostListProvider = ({ children }) => {
   );
 };
 
-const DEFAULT_POST_LIST = [
-  {
-    id: "1",
-    title: "Card Title",
-    body: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    reactions: 10,
-    userId: "user-01",
-    tags: ["vacation", "Mumbai", "Enjoying"],
-  },
-  {
-    id: "2",
-    title: "Card Title 02",
-    body: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    reactions: 100,
-    userId: "user-02",
-    tags: ["Some", "Quick", "Example", "Demo"],
-  },
-];
+// const DEFAULT_POST_LIST = [
+//   {
+//     id: "1",
+//     title: "Card Title",
+//     body: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+//     reactions: 10,
+//     userId: "user-01",
+//     tags: ["vacation", "Mumbai", "Enjoying"],
+//   },
+//   {
+//     id: "2",
+//     title: "Card Title 02",
+//     body: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+//     reactions: 100,
+//     userId: "user-02",
+//     tags: ["Some", "Quick", "Example", "Demo"],
+//   },
+// ];
 
 export default PostListProvider;
