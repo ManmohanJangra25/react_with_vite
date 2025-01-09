@@ -4,9 +4,10 @@ import { PostList as PostListData } from "../store/PostList";
 
 const PostList = () => {
   const { postList, addPost } = useContext(PostListData);
-
+  const controller = new AbortController();
+  const signal = controller.signal;
   useEffect(() => {
-    fetch("https://dummyjson.com/posts")
+    fetch("https://dummyjson.com/posts", { signal: signal })
       .then((res) => res.json())
       .then((data) => {
         data.posts.map((post) => {
@@ -20,6 +21,11 @@ const PostList = () => {
           });
         });
       });
+
+    return () => {
+      console.log("Cleaning Up The useEffect");
+      controller.abort();
+    };
   }, []);
 
   return (
