@@ -24,7 +24,7 @@ const PostList = () => {
 
     return () => {
       console.log("Cleaning Up The useEffect");
-      controller.abort();
+      // controller.abort();
     };
   }, []);
 
