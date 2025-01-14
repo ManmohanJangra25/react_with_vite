@@ -1,32 +1,8 @@
-import { useContext, useEffect } from "react";
 import Post from "./Post";
-import { PostList as PostListData } from "../store/PostList";
+import { useLoaderData } from "react-router-dom";
 
 const PostList = () => {
-  const { postList, addPost } = useContext(PostListData);
-  const controller = new AbortController();
-  const signal = controller.signal;
-  useEffect(() => {
-    fetch("https://dummyjson.com/posts", { signal: signal })
-      .then((res) => res.json())
-      .then((data) => {
-        data.posts.map((post) => {
-          addPost({
-            id: post.id,
-            userId: post.userId,
-            title: post.title,
-            body: post.body,
-            reactions: post.reactions,
-            tags: post.tags,
-          });
-        });
-      });
-
-    return () => {
-      console.log("Cleaning Up The useEffect");
-      // controller.abort();
-    };
-  }, []);
+  const postList = useLoaderData();
 
   return (
     <div className="d-flex gap-3 flex-wrap mt-3 ms-3">
@@ -41,6 +17,14 @@ const PostList = () => {
       )}
     </div>
   );
+};
+
+export const postLoader = () => {
+  return fetch("https://dummyjson.com/posts")
+    .then((res) => res.json())
+    .then((data) => {
+      return data.posts;
+    });
 };
 
 export default PostList;

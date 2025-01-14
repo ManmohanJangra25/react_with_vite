@@ -1,45 +1,20 @@
-import { useContext, useRef } from "react";
 import { PostList as PostListData } from "../store/PostList";
+import { useContext } from "react";
+import { Form } from "react-router-dom";
 
 const CreatePost = () => {
-  const { addPost } = useContext(PostListData);
-
-  const userId = useRef();
-  const postTitle = useRef();
-  const postBody = useRef();
-  const postReactions = useRef();
-  const postHashtag = useRef();
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    addPost({
-      id: Date.now(),
-      userId: userId.current.value,
-      title: postTitle.current.value,
-      body: postBody.current.value,
-      reactions: postReactions.current.value,
-      tags: postHashtag.current.value.split(" "),
-    });
-
-    userId.current.value = "";
-    postTitle.current.value = "";
-    postBody.current.value = "";
-    postReactions.current.value = "";
-    postHashtag.current.value = "";
-  }
-
   return (
-    <form className="m-auto w-50" onSubmit={handleSubmit}>
+    <Form method="POST" className="m-auto w-50">
       <div className="mb-3">
         <label htmlFor="postUserID" className="form-label">
-          Reactions
+          User Id
         </label>
         <input
           type="text"
           className="form-control"
           id="postUserID"
           placeholder="User ID"
-          ref={userId}
+          name="userId"
           required
         />
       </div>
@@ -53,7 +28,7 @@ const CreatePost = () => {
           id="postTitle"
           aria-describedby="PostTitle"
           placeholder="Enter Post Title"
-          ref={postTitle}
+          name="title"
           required
         />
       </div>
@@ -66,7 +41,7 @@ const CreatePost = () => {
           className="form-control"
           id="postBody"
           placeholder="Tell Me more about it"
-          ref={postBody}
+          name="body"
           required
         />
       </div>
@@ -79,7 +54,7 @@ const CreatePost = () => {
           className="form-control"
           id="postReactions"
           placeholder="Number Of Reactions"
-          ref={postReactions}
+          name="reactions"
           required
         />
       </div>
@@ -92,15 +67,32 @@ const CreatePost = () => {
           className="form-control"
           id="postHashtags"
           placeholder="Number Of Hashtags"
-          ref={postHashtag}
+          name="tags"
           required
         />
       </div>
       <button type="submit" className="btn btn-primary">
         Post
       </button>
-    </form>
+    </Form>
   );
+};
+
+export const CreatePostAction = (data) => {
+  const formData = data.request.formData();
+  const postData = Object.fromEntries(formData);
+  const { addPost } = useContext(PostListData);
+  postData.tags = postData.tags.split(" ");
+  console.log(postData);
+
+  return addPost({
+    id: Date.now(),
+    userId: postData.userId,
+    title: postData.title,
+    body: postData.body,
+    reactions: postData.reactions,
+    tags: postData.tags,
+  });
 };
 
 export default CreatePost;
