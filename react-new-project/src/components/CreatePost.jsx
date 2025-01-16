@@ -78,12 +78,11 @@ const CreatePost = () => {
   );
 };
 
-export const CreatePostAction = (data) => {
-  const formData = data.request.formData();
+export const CreatePostAction = async (data) => {
+  const formData = await data.request.formData();
   const postData = Object.fromEntries(formData);
   const { addPost } = useContext(PostListData);
   postData.tags = postData.tags.split(" ");
-  console.log(postData);
 
   return addPost({
     id: Date.now(),
