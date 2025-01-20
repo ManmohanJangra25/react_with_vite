@@ -1,52 +1,45 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { counterAction, privacyAction } from "../store";
 
 const Controls = () => {
   const dispatch = useDispatch();
   const inputElement = useRef();
-  const privacyStore = useSelector((store) => store.privacy);
+  const { privacyVal } = useSelector((store) => store.privacy);
 
   const handleIncreament = () => {
-    if (!privacyStore) {
-      dispatch({
-        type: "INCREMENT",
-      });
+    if (!privacyVal) {
+      dispatch(counterAction.increment());
     }
   };
   const handleDecreament = () => {
-    if (!privacyStore) {
-      dispatch({
-        type: "DECREMENT",
-      });
+    if (!privacyVal) {
+      dispatch(counterAction.decrement());
     }
   };
   const handleAddition = () => {
-    if (!privacyStore) {
-      dispatch({
-        type: "ADDITION",
-        payload: {
-          number: inputElement.current.value,
-        },
-      });
+    if (!privacyVal) {
+      dispatch(
+        counterAction.addition({
+          number: Number(inputElement.current.value),
+        })
+      );
       inputElement.current.value = "";
     }
   };
   const handleSubtraction = () => {
-    if (!privacyStore) {
-      dispatch({
-        type: "SUBTRACTION",
-        payload: {
-          number: inputElement.current.value,
-        },
-      });
+    if (!privacyVal) {
+      dispatch(
+        counterAction.subtraction({
+          number: Number(inputElement.current.value),
+        })
+      );
       inputElement.current.value = "";
     }
   };
 
   const handleToggle = () => {
-    dispatch({
-      type: "PRIVACY_TOGGLE",
-    });
+    dispatch(privacyAction.privacyToggle());
   };
 
   return (
